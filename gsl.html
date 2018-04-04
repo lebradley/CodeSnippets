@@ -13,9 +13,50 @@
 <body>
     <h3>My Google Maps Demo</h3>
     <input id='search-text' type='text'>
-    <button type='submit' onClick='processSearchValue("search-text")'>Search</button>
+    <button type='submit' onClick='processSearchValue2("search-text")'>Search</button>
     <div id="map"></div>
     <script>
+        const googleApiKey = 'AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ';
+        const baseurl =
+            'https://costa-platform-uat.com/locations/stores?countryCode=UK&';
+        const baseGoogleUrl =
+            'https://maps.googleapis.com/maps/api/place/textsearch/json?&key=' + googleApiKey + '&query=costa+';
+
+        function googleTextSearch(url, queryString, callback) {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = () => {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    let respObj = JSON.parse(xmlHttp.responseText);
+                    callback(respObj);
+                }
+            }
+            queryString = queryString.trim().replace(/\s+/g, '+');
+            xmlHttp.open("GET", baseGoogleUrl + queryString, true); // true marks asynchronous 
+            xmlHttp.send(null);
+        };
+
+
+        function processSearchValue2(targetdiv) {
+            let value = document.getElementById(targetdiv).value;
+            let doAThing = googleTextSearch(baseGoogleUrl, value, (responseText) => {
+                const results = responseText.results;
+                if (results.length === 0) {
+                    console.log('no results found!');
+                }
+                else {
+                    let place = results[0].geometry.location;
+                    let location = { lat: place.lat, lng: place.lng };
+                    let map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 12,
+                        center: location
+                    });
+                    let marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                }
+            });
+        }
 
         function processSearchValue(targetdiv) {
             let value = document.getElementById(targetdiv).value;
@@ -33,8 +74,7 @@
             });
         }
 
-        const baseurl =
-            'https://costa-platform-uat.com/locations/stores?countryCode=UK&';
+
 
         function createLatLongObj(responseText) {
             const long = responseText.stores[0].longitude;
