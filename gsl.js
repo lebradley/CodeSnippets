@@ -1,10 +1,10 @@
 const googleApiKey = 'AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ';
-const baseurl =
-  'https://costa-platform-uat.com/locations/stores?countryCode=UK&';
+const baseGSLUrl =
+  'https://costa-platform-staging.com/locations/v2/stores?maxrec=0&radius=5&';
 const baseGoogleUrl =
   'https://maps.googleapis.com/maps/api/place/textsearch/json?&key=' +
   googleApiKey +
-  '&query=costa+';
+  '&query=';
 const london = {
   lat: 51.507222,
   lng: -0.1275
@@ -12,6 +12,7 @@ const london = {
 
 let map;
 
+// Google text search API
 function googleTextSearch(url, queryString, callback) {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = () => {
@@ -25,7 +26,8 @@ function googleTextSearch(url, queryString, callback) {
   xmlHttp.send(null);
 }
 
-function processSearchValue2(targetdiv) {
+// Process input - search text api with it and return LatLong coordinates for GSL
+function processSearchValue(targetdiv) {
   let value = document.getElementById(targetdiv).value;
   let doAThing = googleTextSearch(baseGoogleUrl, value, responseText => {
     const results = responseText.results;
@@ -34,33 +36,59 @@ function processSearchValue2(targetdiv) {
     } else {
       let place = results[0].geometry.location;
       let location = { lat: place.lat, lng: place.lng };
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: location
-      });
-      let marker = new google.maps.Marker({
-        position: location,
-        map: map
+      console.log(location);
+      getGSLByLatLong(location, respObject => {
+        console.log(respObject);
+        //reposition map to new locale
+        let center = new google.maps.LatLng(location.lat, location.lng);
+        map.panTo(center);
+        //map out costa results
+        respObject.stores.map(s => {
+          let marker = new google.maps.Marker({
+            position: {
+              lat: parseFloat(s.latitude),
+              lng: parseFloat(s.longitude)
+            },
+            map: map
+          });
+        });
       });
     }
   });
 }
 
-function processSearchValue(targetdiv) {
-  let value = document.getElementById(targetdiv).value;
-  let latLong = getStoreByPostCode(baseurl, value, responseText => {
-    const latLong = createLatLongObj(responseText);
-    let location = { lat: latLong.lat, lng: latLong.long };
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: location
-    });
-    let marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
-  });
+// Search for stores on GSL by lat long
+function getGSLByLatLong(coords, callback) {
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = () => {
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+      let respObj = JSON.parse(xmlHttp.responseText);
+      callback(respObj); // do something with the returned stores array
+    }
+  };
+  xmlHttp.open(
+    'GET',
+    baseGSLUrl + 'latitude=' + coords.lat + '&longitude=' + coords.lng,
+    true
+  );
+  xmlHttp.send(null);
 }
+
+// function processSearchValue2(targetdiv) {
+//   let value = document.getElementById(targetdiv).value;
+//   let latLong = getStoreByPostCode(baseGSLUrl, value, responseText => {
+//     const latLong = createLatLongObj(responseText);
+//     let location = { lat: latLong.lat, lng: latLong.long };
+//     map = new google.maps.Map(document.getElementById('map'), {
+//       zoom: 12,
+//       center: location
+//     });
+//     let marker = new google.maps.Marker({
+//       position: location,
+//       map: map
+//     });
+//   });
+// }
 
 function createLatLongObj(responseText) {
   const long = responseText.stores[0].longitude;
