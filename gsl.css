@@ -9,3 +9,7 @@ h2,
 label {
   font-family: 'Arial', 'Verdana', sans-serif;
 }
+
+input {
+  min-width: 250px;
+}

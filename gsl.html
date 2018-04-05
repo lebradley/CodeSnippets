@@ -8,8 +8,8 @@
 
 <body>
     <h1>My Google Maps Demo</h1>
-    <input id='search-text' type='text'>
-    <button type='submit' onClick='processSearchValue("search-text")'>Search</button>
+    <input id='searchText' type="text" />
+    <button type='submit' onclick="processSearchValue('searchText')">Search</button>
     <div id="map"></div>
     <div id="filters">
         <form>
@@ -28,7 +28,7 @@
     <script>
 
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ&libraries=places&callback=initMap">
     </script>
 </body>
 

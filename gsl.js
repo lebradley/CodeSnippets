@@ -26,6 +26,19 @@ function googleTextSearch(url, queryString, callback) {
   xmlHttp.send(null);
 }
 
+// Process input with the autocomplete from GOOGLE API
+function handleUserInputAutocomplete() {
+  let autocomplete;
+  const options = {
+    //  types: [{ country: 'UK' }]
+    componentRestrictions: { country: 'uk' }
+  };
+  autocomplete = new google.maps.places.Autocomplete(
+    window.searchText,
+    options
+  );
+}
+
 // Process input - search text api with it and return LatLong coordinates for GSL
 function processSearchValue(targetdiv) {
   let value = document.getElementById(targetdiv).value;
@@ -86,28 +99,6 @@ function getGSLByLatLong(coords, callback) {
   xmlHttp.send(null);
 }
 
-// function createLatLongObj(responseText) {
-//   const long = responseText.stores[0].longitude;
-//   const lat = responseText.stores[0].latitude;
-//   const latLong = {
-//     long: parseFloat(long),
-//     lat: parseFloat(lat)
-//   };
-//   return latLong;
-// }
-
-// function getStoreByPostCode(theUrl, postalCode, callback) {
-//   var xmlHttp = new XMLHttpRequest();
-//   xmlHttp.onreadystatechange = function() {
-//     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-//       let respObj = JSON.parse(xmlHttp.responseText);
-//       callback(respObj);
-//     }
-//   };
-//   xmlHttp.open('GET', theUrl + 'postalCode=' + postalCode, true); // true marks asynchronous
-//   xmlHttp.send(null);
-// }
-
 // Starter method to layout the map when the user first lands on the page. Fix the HTML 5 Geolocation aspect
 function initMap() {
   let defaultLocation;
@@ -131,6 +122,7 @@ function initMap() {
   // );
   defaultLocation = london;
   makeAndPlotMap(defaultLocation);
+  window.searchText.onkeyup = handleUserInputAutocomplete; // onchange is not a property of input box
 }
 
 function makeAndPlotMap(coords) {
