@@ -3,19 +3,28 @@
 
 <head>
     <script src="gsl.js"></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 75%;
-        }
-    </style>
+    <link rel="stylesheet" href="gsl.css" type="text/css">
 </head>
 
 <body>
-    <h3>My Google Maps Demo</h3>
+    <h1>My Google Maps Demo</h1>
     <input id='search-text' type='text'>
     <button type='submit' onClick='processSearchValue("search-text")'>Search</button>
     <div id="map"></div>
+    <div id="filters">
+        <form>
+            <h2>Filters</h2>
+            <label>Wifi</label>
+            <input type="checkbox" />
+            <br/>
+            <label>Express</label>
+            <input type="checkbox" />
+            <br/>
+            <label>Disabled Access</label>
+            <input type="checkbox" />
+            <br/>
+        </form>
+    </div>
     <script>
 
     </script>
