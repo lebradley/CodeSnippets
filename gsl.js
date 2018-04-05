@@ -1,3 +1,6 @@
+// https://stackoverflow.com/questions/44336773/google-maps-api-no-access-control-allow-origin-header-is-present-on-the-reque
+// use builtin js functionality, not Xml Http requests
+
 const googleApiKey = 'AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ';
 const baseGSLUrl =
   'https://costa-platform-staging.com/locations/v2/stores?maxrec=0&radius=5&';
@@ -43,6 +46,15 @@ function googleTextSearch(url, queryString, callback) {
   xmlHttp.send(null);
 }
 
+// Google text search API
+function googleTextSearch2(url, requestinput, callback) {
+  let service = new google.maps.places.PlacesService(map);
+  let request = {
+    query: requestinput.trim().replace(/\s+/g, '+')
+  };
+  service.textSearch(request, callback);
+}
+
 // Process input with the autocomplete from GOOGLE API
 function handleUserInputAutocomplete() {
   let autocomplete;
@@ -58,15 +70,13 @@ function handleUserInputAutocomplete() {
 // Process input - search text api with it and return LatLong coordinates for GSL
 function processSearchValue(targetdiv) {
   let value = document.getElementById(targetdiv).value;
-  let doAThing = googleTextSearch(baseGoogleUrl, value, responseText => {
-    const results = responseText.results;
+  let doAThing = googleTextSearch2(baseGoogleUrl, value, results => {
     window.searchResult.innerHTML = '';
     if (results.length === 0) {
       window.searchResult.innerHTML = 'No results found';
     } else {
       let place = results[0].geometry.location;
-      let location = { lat: place.lat, lng: place.lng };
-
+      let location = { lat: place.lat(), lng: place.lng() };
       getGSLByLatLong(location, respObject => {
         //map out costa results
         let markers = respObject.stores.map((s, i) => {
@@ -148,7 +158,9 @@ function getGSLByLatLong(coords, callback) {
     baseGSLUrl + 'latitude=' + coords.lat + '&longitude=' + coords.lng,
     true
   );
-  xmlHttp.send(null);
+  xmlHttp.setRequestHeader('Content-Type', 'application/json');
+  xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+  xmlHttp.send();
 }
 
 // Starter method to layout the map when the user first lands on the page. Fix the HTML 5 Geolocation aspect
