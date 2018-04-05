@@ -12,17 +12,23 @@ const london = {
 
 let map;
 
-// Google text search API
-function googleTextSearch(url, queryString, callback) {
-  let xmlHttp = new XMLHttpRequest();
+// xmlHttp helper method
+function createXMLHTTP(callback) {
+  const xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = () => {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
       let respObj = JSON.parse(xmlHttp.responseText);
       callback(respObj);
     }
   };
+  return xmlHttp;
+}
+
+// Google text search API
+function googleTextSearch(url, queryString, callback) {
+  const xmlHttp = createXMLHTTP(callback);
   queryString = queryString.trim().replace(/\s+/g, '+');
-  xmlHttp.open('GET', baseGoogleUrl + queryString, true); // true marks asynchronous
+  xmlHttp.open('GET', baseGoogleUrl + queryString, true);
   xmlHttp.send(null);
 }
 
@@ -30,7 +36,6 @@ function googleTextSearch(url, queryString, callback) {
 function handleUserInputAutocomplete() {
   let autocomplete;
   const options = {
-    //  types: [{ country: 'UK' }]
     componentRestrictions: { country: 'uk' }
   };
   autocomplete = new google.maps.places.Autocomplete(
@@ -44,8 +49,9 @@ function processSearchValue(targetdiv) {
   let value = document.getElementById(targetdiv).value;
   let doAThing = googleTextSearch(baseGoogleUrl, value, responseText => {
     const results = responseText.results;
+    window.searchResult.innerHTML = '';
     if (results.length === 0) {
-      console.log('no results found!');
+      window.searchResult.innerHTML = 'No results found';
     } else {
       let place = results[0].geometry.location;
       let location = { lat: place.lat, lng: place.lng };
@@ -63,7 +69,6 @@ function processSearchValue(targetdiv) {
             map: map,
             label: s.storeFacilities.find(f => {
               return f.name === 'Costa Express' && f.active == true;
-              console.log(f);
             })
               ? 'E'
               : null
@@ -84,13 +89,7 @@ function processSearchValue(targetdiv) {
 
 // Search for stores on GSL by lat long
 function getGSLByLatLong(coords, callback) {
-  let xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = () => {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-      let respObj = JSON.parse(xmlHttp.responseText);
-      callback(respObj); // do something with the returned stores array
-    }
-  };
+  let xmlHttp = createXMLHTTP(callback);
   xmlHttp.open(
     'GET',
     baseGSLUrl + 'latitude=' + coords.lat + '&longitude=' + coords.lng,
