@@ -10,6 +10,17 @@ const london = {
   lng: -0.1275
 };
 
+const stats = {
+  longitude: {
+    degree: 0.00001,
+    metre: 0.67
+  },
+  latitude: {
+    degree: 0.00001,
+    metre: 1.1
+  }
+};
+
 let map;
 
 // xmlHttp helper method
@@ -55,12 +66,10 @@ function processSearchValue(targetdiv) {
     } else {
       let place = results[0].geometry.location;
       let location = { lat: place.lat, lng: place.lng };
+
       getGSLByLatLong(location, respObject => {
-        //reposition map to new locale
-        let center = new google.maps.LatLng(location.lat, location.lng);
-        map.panTo(center);
         //map out costa results
-        respObject.stores.map(s => {
+        let markers = respObject.stores.map((s, i) => {
           let marker = new google.maps.Marker({
             position: {
               lat: parseFloat(s.latitude),
@@ -81,6 +90,50 @@ function processSearchValue(targetdiv) {
             infoWindow.close();
             infoWindow.open(map, marker);
           });
+          return marker;
+        });
+        //reposition map to new locale
+        let center = new google.maps.LatLng(location.lat, location.lng);
+        let bounds = new google.maps.LatLngBounds().extend(location);
+        bounds.extend(markers[0].position);
+        bounds.extend(markers[1].position);
+        map.panTo(center);
+        map.fitBounds(bounds);
+
+        //draw out boxes of the search results below the map
+        let resultList = respObject.stores.map((s, i) => {
+          let maindiv = document.createElement('div');
+          maindiv.className = 'row list-item';
+          let addressDiv = document.createElement('div');
+          addressDiv.className = 'col-md-6 store-address';
+          let storeDiv = document.createElement('div');
+          storeDiv.className = 'col-md-6 store-facts';
+
+          let addressArray = Object.keys(s.storeAddress).map(k => {
+            return s.storeAddress[k];
+          });
+          addressArray.map((a, i) => {
+            if (a.length > 0) {
+              const span = document.createElement('span');
+              span.innerHTML = a;
+              addressDiv.appendChild(span);
+            }
+          });
+
+          let openspan = document.createElement('span');
+          openspan.innerHTML = s.isStoreOpen ? 'Open' : 'Closed';
+          storeDiv.appendChild(openspan);
+
+          let collectspan = document.createElement('span');
+          collectspan.innerHTML = s.isCollectStore
+            ? 'Collect Store'
+            : 'Collect Not Available';
+          storeDiv.appendChild(collectspan);
+
+          maindiv.appendChild(addressDiv);
+          maindiv.appendChild(storeDiv);
+          maindiv.id = 'result' + i;
+          document.getElementById('searchResultList').appendChild(maindiv);
         });
       });
     }

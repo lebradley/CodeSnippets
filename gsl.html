@@ -3,34 +3,58 @@
 
 <head>
     <script src="gsl.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="gsl.css" type="text/css">
 </head>
 
 <body>
-    <h1>My Google Maps Demo</h1>
-    <input id='searchText' type="text" />
-    <button type='submit' onclick="processSearchValue('searchText')">Search</button>
-    <p id="searchResult"></p>
-    <div id="map"></div>
-    <div id="filters">
-        <form>
-            <h2>Filters</h2>
-            <label>Wifi</label>
-            <input type="checkbox" />
-            <br/>
-            <label>Express</label>
-            <input type="checkbox" />
-            <br/>
-            <label>Disabled Access</label>
-            <input type="checkbox" />
-            <br/>
-        </form>
-    </div>
-    <script>
+    <div class="container-fluid">
+        <div class="row">
+            <h1>My Google Maps Demo</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <input id='searchText' type="text" />
+                <button type='submit' onclick="processSearchValue('searchText')">Search</button>
+            </div>
+            <div class="col-md-4">
+                <p id="searchResult"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div id="filters">
+                    <form>
+                        <h2>Filters</h2>
+                        <label>Wifi</label>
+                        <input type="checkbox" />
+                        <br/>
+                        <label>Express</label>
+                        <input type="checkbox" />
+                        <br/>
+                        <label>Disabled Access</label>
+                        <input type="checkbox" />
+                        <br/>
+                        <input type="submit" value="Apply" onsubmit="(event) => {event.preventDefault()}" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div id="searchResultList" class="list-container">
 
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ&libraries=places&callback=initMap">
-    </script>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ&libraries=places&callback=initMap">
+        </script>
+    </div>
 </body>
 
 </html>
