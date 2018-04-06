@@ -1,6 +1,6 @@
 #map {
   height: 400px;
-  width: 75%;
+  width: 100%;
 }
 
 p,
@@ -8,4 +8,34 @@ h1,
 h2,
 label {
   font-family: 'Arial', 'Verdana', sans-serif;
+}
+
+p {
+  padding: 0px;
+  margin: 0px;
+}
+input {
+  min-width: 250px;
+}
+
+.pac-container:after {
+  /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+  background-image: none !important;
+  height: 0px;
+}
+
+.list-container {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+.list-item {
+  background-color: #fbf7f5;
+  border: #6d1f37 solid 3px;
+  margin-bottom: 15px;
+}
+
+.list-item span {
+  padding: 2px;
+  display: block;
 }
