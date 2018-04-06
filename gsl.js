@@ -158,8 +158,7 @@ function getGSLByLatLong(coords, callback) {
     baseGSLUrl + 'latitude=' + coords.lat + '&longitude=' + coords.lng,
     true
   );
-  xmlHttp.setRequestHeader('Content-Type', 'application/json');
-  xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+  // xmlHttp.setRequestHeader('Content-Type', 'application/json');
   xmlHttp.send();
 }
 
