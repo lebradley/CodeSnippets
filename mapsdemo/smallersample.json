@@ -1,0 +1,206 @@
+{
+  "stores": [
+    {
+      "distance": 0.215,
+      "storeNo8Digit": "43012610",
+      "storeNo7Digit": "8102355",
+      "storeNameInternal": "Embankment",
+      "storeNameExternal": "Embankment",
+      "storeBusinessModel": "INT-EQUITY",
+      "storeType": "COSTA STORE",
+      "storeStatus": "TRADING",
+      "telephone": "020 7930 3014",
+      "email": "43012610@costacoffee.co.uk",
+      "isCollectStore": false,
+      "isStoreOpen": true,
+      "isAcceptingCollect": false,
+      "storeAddress": {
+        "addressLine1": "17 Embankment Place",
+        "addressLine2": "(Off Villier Street)",
+        "addressLine3": "",
+        "city": "London",
+        "postCode": "WC2N 6NN",
+        "region": "",
+        "country": "United Kingdom",
+        "countryCode": "GBR"
+      },
+      "longitude": "-0.1231",
+      "latitude": "51.5075",
+      "storeOperatingHours": {
+        "openMon": "05:30",
+        "closeMon": "20:30",
+        "openTue": "05:30",
+        "closeTue": "20:30",
+        "openWed": "05:30",
+        "closeWed": "20:30",
+        "openThu": "05:30",
+        "closeThu": "20:30",
+        "openFri": "05:30",
+        "closeFri": "20:30",
+        "openSat": "06:00",
+        "closeSat": "20:00",
+        "openSun": "07:00",
+        "closeSun": "20:00"
+      },
+      "collectOperatingHours": {
+        "openMon": "",
+        "closeMon": "",
+        "openTue": "",
+        "closeTue": "",
+        "openWed": "",
+        "closeWed": "",
+        "openThu": "",
+        "closeThu": "",
+        "openFri": "",
+        "closeFri": "",
+        "openSat": "",
+        "closeSat": "",
+        "openSun": "",
+        "closeSun": ""
+      },
+      "storeFacilities": [
+        {
+          "name": "Coffee Club",
+          "active": true
+        },
+        {
+          "name": "Gift Cards",
+          "active": true
+        },
+        {
+          "name": "Wifi",
+          "active": false
+        },
+        {
+          "name": "Disabled WC",
+          "active": false
+        },
+        {
+          "name": "Baby Changing",
+          "active": false
+        },
+        {
+          "name": "Disabled Access",
+          "active": false
+        },
+        {
+          "name": "Drive Thru",
+          "active": false
+        },
+        {
+          "name": "Costa Express",
+          "active": false
+        },
+        {
+          "name": "Delivery",
+          "active": false
+        },
+        {
+          "name": "Mobile Order",
+          "active": false
+        }
+      ]
+    },
+    {
+      "distance": 0.254,
+      "storeNo8Digit": "43035420",
+      "storeNo7Digit": "2173611",
+      "storeNameInternal": "BFI Waterloo",
+      "storeNameExternal": "BFI Waterloo",
+      "storeBusinessModel": "INT-CLM",
+      "storeType": "COSTA STORE",
+      "storeStatus": "TRADING",
+      "telephone": "",
+      "email": "",
+      "isCollectStore": false,
+      "isStoreOpen": true,
+      "isAcceptingCollect": false,
+      "storeAddress": {
+        "addressLine1": "Odeon Cinema",
+        "addressLine2": "BFI Imax, 1 Charlie Chaplin Walk South Bank",
+        "addressLine3": "",
+        "city": "Waterloo",
+        "postCode": "SE1 8XR",
+        "region": "London",
+        "country": "United Kingdom",
+        "countryCode": "UK"
+      },
+      "longitude": "-0.113924",
+      "latitude": "51.5048",
+      "storeOperatingHours": {
+        "openMon": "09:00",
+        "closeMon": "17:00",
+        "openTue": "09:00",
+        "closeTue": "17:00",
+        "openWed": "09:00",
+        "closeWed": "17:00",
+        "openThu": "09:00",
+        "closeThu": "17:00",
+        "openFri": "09:00",
+        "closeFri": "17:00",
+        "openSat": "09:00",
+        "closeSat": "17:00",
+        "openSun": "09:00",
+        "closeSun": "17:00"
+      },
+      "collectOperatingHours": {
+        "openMon": "",
+        "closeMon": "",
+        "openTue": "",
+        "closeTue": "",
+        "openWed": "",
+        "closeWed": "",
+        "openThu": "",
+        "closeThu": "",
+        "openFri": "",
+        "closeFri": "",
+        "openSat": "",
+        "closeSat": "",
+        "openSun": "",
+        "closeSun": ""
+      },
+      "storeFacilities": [
+        {
+          "name": "Coffee Club",
+          "active": true
+        },
+        {
+          "name": "Gift Cards",
+          "active": false
+        },
+        {
+          "name": "Wifi",
+          "active": true
+        },
+        {
+          "name": "Disabled WC",
+          "active": false
+        },
+        {
+          "name": "Baby Changing",
+          "active": true
+        },
+        {
+          "name": "Disabled Access",
+          "active": true
+        },
+        {
+          "name": "Drive Thru",
+          "active": false
+        },
+        {
+          "name": "Costa Express",
+          "active": false
+        },
+        {
+          "name": "Delivery",
+          "active": false
+        },
+        {
+          "name": "Mobile Order",
+          "active": false
+        }
+      ]
+    }
+  ]
+}

@@ -26,6 +26,8 @@ const stats = {
 
 let map;
 
+let allMySearchResults = [];
+
 // xmlHttp helper method
 function createXMLHTTP(callback) {
   const xmlHttp = new XMLHttpRequest();
@@ -65,6 +67,10 @@ function handleUserInputAutocomplete() {
     window.searchText,
     options
   );
+}
+
+function filterByStoreType() {
+  alert('howdy');
 }
 
 // Process input - search text api with it and return LatLong coordinates for GSL
@@ -109,6 +115,9 @@ function processSearchValue(targetdiv) {
         bounds.extend(markers[1].position);
         map.panTo(center);
         map.fitBounds(bounds);
+
+        // set up my fake state
+        allMySearchResults = respObject.stores;
 
         //draw out boxes of the search results below the map
         let resultList = respObject.stores.map((s, i) => {

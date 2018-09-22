@@ -24,18 +24,15 @@
         <div class="row">
             <div class="col-md-2">
                 <div id="filters">
-                    <form>
+                    <form onsubmit="filterByStoreType()">
                         <h2>Filters</h2>
-                        <label>Wifi</label>
-                        <input type="checkbox" />
+                        <input type="radio" name="storetype" value="Costa Express" />
+                        <span>Costa Express</span>
                         <br/>
-                        <label>Express</label>
-                        <input type="checkbox" />
+                        <input type="radio" name="storetype" value="Costa Store" />
+                        <span>Costa Store</span>
                         <br/>
-                        <label>Disabled Access</label>
-                        <input type="checkbox" />
-                        <br/>
-                        <input type="submit" value="Apply" onsubmit="(event) => {event.preventDefault()}" />
+                        <input type="submit" value="Apply" />
                     </form>
                 </div>
             </div>
@@ -52,7 +49,7 @@
             </div>
             <div class="col-md-1"></div>
         </div>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL8Bx9LKau7b2Xa0LG16aGd53kTdiHbfQ&libraries=places&callback=initMap">
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeaF1jQXp8SmdrzxebPw-quvwcmkXY5MY&libraries=places&callback=initMap">
         </script>
     </div>
 </body>
